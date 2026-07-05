@@ -1,0 +1,1 @@
+This repo contains the code for the ET AI Hackathon project. The project is a web application that provides real-time air quality information for different locations in India. The application uses machine learning models to predict air quality based on various factors such as weather, traffic, and population density.
