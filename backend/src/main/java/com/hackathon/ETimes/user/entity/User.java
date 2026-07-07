@@ -2,6 +2,9 @@ package com.hackathon.ETimes.user.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "users")
@@ -22,4 +25,10 @@ public class User {
     private String email;
 
     private String password;
+
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
+    @CreationTimestamp
+    private LocalDateTime createdAt;
 }
