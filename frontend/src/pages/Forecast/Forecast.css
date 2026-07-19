@@ -1,0 +1,30 @@
+.forecast-container {
+    padding: 20px;
+}
+
+.forecast-title {
+    margin-bottom: 20px;
+}
+
+.forecast-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #1E293B;
+    color: white;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.forecast-table th,
+.forecast-table td {
+    padding: 15px;
+    text-align: center;
+}
+
+.forecast-table th {
+    background: #0F172A;
+}
+
+.forecast-table tr:nth-child(even) {
+    background: #334155;
+}

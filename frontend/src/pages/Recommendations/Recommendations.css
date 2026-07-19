@@ -1,0 +1,56 @@
+.recommendation-container {
+    padding: 20px;
+}
+
+.page-title {
+    text-align: center;
+    color: white;
+    margin-bottom: 25px;
+}
+
+.summary-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-bottom: 25px;
+}
+
+.summary-card {
+    background: #1E293B;
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.recommendation-box {
+    background: #1E293B;
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.recommendation-box h3 {
+    margin-bottom: 15px;
+}
+
+.recommendation-box ul {
+    padding-left: 20px;
+}
+
+.recommendation-box li {
+    margin-bottom: 10px;
+}
+
+.high {
+    border-left: 6px solid red;
+}
+
+.medium {
+    border-left: 6px solid orange;
+}
+
+.low {
+    border-left: 6px solid green;
+}

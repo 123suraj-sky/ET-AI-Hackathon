@@ -1,0 +1,22 @@
+.navbar {
+    height: 70px;
+    background-color: #1e293b;
+    color: white;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 0 25px;
+}
+
+.logo h2{
+    margin:0;
+}
+
+.search input{
+    width:300px;
+    padding:10px;
+    border:none;
+    border-radius:8px;
+}

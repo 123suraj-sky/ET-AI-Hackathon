@@ -1,0 +1,20 @@
+.recommendation{
+
+    background:#1E293B;
+
+    color:white;
+
+    padding:20px;
+
+    border-radius:12px;
+}
+
+.recommendation ul{
+
+    margin-top:15px;
+}
+
+.recommendation li{
+
+    margin-bottom:10px;
+}

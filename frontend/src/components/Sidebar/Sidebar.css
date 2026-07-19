@@ -1,0 +1,26 @@
+.sidebar{
+    width:240px;
+    height:calc(100vh - 70px);
+    background:#16213E;
+
+    display:flex;
+    flex-direction:column;
+
+    padding:20px;
+}
+
+.sidebar a{
+    color:white;
+    text-decoration:none;
+    padding:15px;
+    margin-bottom:10px;
+    border-radius:8px;
+}
+
+.sidebar a:hover{
+    background:#243B55;
+}
+
+.sidebar a.active{
+    background:#2563EB;
+}
