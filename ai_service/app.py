@@ -8,6 +8,11 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import google.generativeai as genai
+from dotenv import load_dotenv
+
+# ─── Load .env from project root ─────────────────────────────────────────────
+_env_path = os.path.join(os.path.dirname(__file__), "..", ".env")
+load_dotenv(dotenv_path=_env_path)
 
 app = FastAPI(title="Air Quality AI Service")
 
@@ -20,26 +25,21 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# ─── Load API Keys ────────────────────────────────────────────────────────────
-api_key_path = os.path.join(os.path.dirname(__file__), "..", "api_key.txt")
-gemini_api_key = None
-owm_api_key = None
+# ─── Load API Keys from environment ──────────────────────────────────────────
+gemini_api_key = os.getenv("GEMINI_API_KEY")
+owm_api_key = os.getenv("OPENWEATHERMAP_API_KEY")
 
-try:
-    with open(api_key_path, "r") as f:
-        for line in f:
-            line = line.strip()
-            if line.lower().startswith("google gemini api key:"):
-                gemini_api_key = line.split(":", 1)[1].strip()
-            elif line.lower().startswith("openweathermap api key:"):
-                owm_api_key = line.split(":", 1)[1].strip()
-    if gemini_api_key:
-        genai.configure(api_key=gemini_api_key)
-        print("Gemini API key loaded successfully.")
-    if owm_api_key:
-        print("OpenWeatherMap API key loaded successfully.")
-except Exception as e:
-    print(f"Warning: Failed to load API keys: {e}")
+if gemini_api_key:
+    genai.configure(api_key=gemini_api_key)
+    print("Gemini API key loaded successfully.")
+else:
+    print("Warning: GEMINI_API_KEY not found in environment / .env file.")
+
+if owm_api_key:
+    print("OpenWeatherMap API key loaded successfully.")
+else:
+    print("Warning: OPENWEATHERMAP_API_KEY not found in environment / .env file.")
+
 
 # ─── Load ARIMA model ─────────────────────────────────────────────────────────
 model_path = os.path.join(os.path.dirname(__file__), "..", "model", "arima.pkl")
