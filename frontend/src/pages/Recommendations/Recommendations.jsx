@@ -4,6 +4,7 @@ import remarkGfm from "remark-gfm";
 import "./Recommendations.css";
 import { getRecommendations } from "../../services/recommendationApi";
 import { getDashboardData } from "../../services/dashboardApi";
+import { FaBrain, FaBolt, FaExclamationTriangle } from "react-icons/fa";
 
 function Recommendations() {
   const [recommendations, setRecommendations] = useState("");
@@ -28,7 +29,7 @@ function Recommendations() {
       .finally(() => setAqiLoading(false));
   }, []);
 
-  // Auto-fetch recommendations once AQI is loaded — pass aqi as param to avoid stale closure
+  // Auto-fetch recommendations once AQI is loaded
   const fetchRecommendations = useCallback((currentAqi, currentLocation) => {
     const aqiValue = currentAqi !== undefined ? currentAqi : aqi;
     const locationValue = currentLocation !== undefined ? currentLocation : location;
@@ -66,97 +67,76 @@ function Recommendations() {
     fetchRecommendations(aqi, location);
   };
 
-
-
   return (
     <div className="recommendation-container">
-      <h2 className="page-title">🧠 Decision Intelligence Advisor</h2>
-      <p className="page-description">Get immediate, Gemini AI-driven action plans for municipal and environmental control actions.</p>
+      <div>
+        <h1 className="dashboard-title">
+          <FaBrain style={{ color: "#f97316" }} />
+          Decision Intelligence Advisor
+        </h1>
+        <p className="dashboard-subtitle">
+          Get immediate, Gemini AI-driven action plans for municipal and environmental control actions
+        </p>
+      </div>
 
-      <div
-        className="advisor-control-bar"
-        style={{
-          display: "flex",
-          gap: "15px",
-          marginBottom: "25px",
-          background: "rgba(255, 255, 255, 0.05)",
-          padding: "15px",
-          borderRadius: "8px",
-          flexWrap: "wrap",
-          alignItems: "flex-end",
-        }}
-      >
-        <div style={{ display: "flex", flexDirection: "column", gap: "5px" }}>
-          <label style={{ color: "#94a3b8", fontSize: "13px" }}>City / Location</label>
+      <div className="advisor-control-bar">
+        <div className="input-group">
+          <label className="input-label">City / Location</label>
           <input
             type="text"
+            className="control-input"
             value={location}
             onChange={(e) => setLocation(e.target.value)}
-            style={{ padding: "8px 12px", borderRadius: "6px", border: "1px solid #334155", background: "#0F172A", color: "#fff", fontSize: "14px" }}
           />
         </div>
-        <div style={{ display: "flex", flexDirection: "column", gap: "5px" }}>
-          <label style={{ color: "#94a3b8", fontSize: "13px" }}>
-            Current AQI{aqiLoading && <span style={{ color: "#64748b", fontSize: "11px", marginLeft: "6px" }}>(loading live…)</span>}
+        <div className="input-group">
+          <label className="input-label">
+            Current AQI {aqiLoading && <span style={{ color: "var(--text-dim)", fontSize: "0.75rem" }}>(loading live…)</span>}
           </label>
           <input
             type="number"
+            className="control-input"
+            style={{ width: "120px" }}
             value={aqi}
             onChange={(e) => setAqi(Number(e.target.value))}
-            style={{ padding: "8px 12px", borderRadius: "6px", border: "1px solid #334155", background: "#0F172A", color: "#fff", fontSize: "14px", width: "110px" }}
           />
         </div>
         <button
+          className="action-btn"
           onClick={handleGenerate}
           disabled={loading || aqiLoading}
-          style={{
-            padding: "10px 22px",
-            borderRadius: "6px",
-            border: "none",
-            background: loading || aqiLoading ? "#374151" : "linear-gradient(135deg, #f97316, #ea580c)",
-            color: "#fff",
-            fontWeight: "bold",
-            cursor: loading || aqiLoading ? "not-allowed" : "pointer",
-            transition: "opacity 0.2s",
-            fontSize: "14px",
-          }}
         >
-          {loading ? "⏳ Analyzing..." : "⚡ Generate Action Plan"}
+          <FaBolt />
+          {loading ? "Analyzing..." : "Generate Action Plan"}
         </button>
       </div>
 
-      <div
-        className="recommendation-box"
-        style={{
-          background: "rgba(15, 23, 42, 0.8)",
-          padding: "24px",
-          borderRadius: "10px",
-          border: "1px solid rgba(249, 115, 22, 0.15)",
-          minHeight: "200px",
-        }}
-      >
+      <div className="recommendation-box">
         {loading ? (
           <div style={{ textAlign: "center", padding: "40px 0" }}>
-            <div className="loading" style={{ color: "#f97316", fontSize: "16px" }}>
-              🔄 Generating optimized interventions via Gemini AI...
+            <div className="spinner" style={{ margin: "0 auto 16px" }} />
+            <div style={{ color: "#f97316", fontSize: "1rem", fontWeight: "600" }}>
+              Generating optimized interventions via Gemini AI...
             </div>
-            <p style={{ color: "#64748b", marginTop: "10px", fontSize: "13px" }}>This may take a few seconds</p>
+            <p style={{ color: "var(--text-dim)", marginTop: "8px", fontSize: "0.85rem" }}>
+              Evaluating emission controls, traffic routing & emergency protocols
+            </p>
           </div>
         ) : error ? (
           <div style={{ textAlign: "center", padding: "30px 0" }}>
-            <div style={{ fontSize: "36px", marginBottom: "12px" }}>⚠️</div>
+            <FaExclamationTriangle style={{ fontSize: "2.5rem", color: "#ef4444", marginBottom: "12px" }} />
             <p style={{ color: "#ef4444", marginBottom: "8px", fontWeight: "bold" }}>Could not generate recommendations</p>
-            <p style={{ color: "#64748b", fontSize: "13px", maxWidth: "500px", margin: "0 auto" }}>{error}</p>
+            <p style={{ color: "var(--text-muted)", fontSize: "0.88rem", maxWidth: "500px", margin: "0 auto" }}>{error}</p>
           </div>
         ) : recommendations ? (
           <div className="markdown-body" style={{ color: "#e2e8f0", lineHeight: "1.8" }}>
             <ReactMarkdown remarkPlugins={[remarkGfm]}>{recommendations}</ReactMarkdown>
           </div>
         ) : (
-          <div style={{ textAlign: "center", padding: "40px 0", color: "#475569" }}>
-            <div style={{ fontSize: "40px", marginBottom: "14px" }}>🧠</div>
-            <p style={{ fontSize: "15px", marginBottom: "6px" }}>No recommendations yet</p>
-            <p style={{ fontSize: "13px" }}>Click "Generate Action Plan" to get AI-powered intervention strategies.</p>
+          <div style={{ textAlign: "center", padding: "40px 0", color: "var(--text-dim)" }}>
+            <FaBrain style={{ fontSize: "3rem", marginBottom: "16px", opacity: 0.5 }} />
+            <p style={{ fontSize: "1rem", marginBottom: "6px", color: "var(--text-muted)" }}>No recommendations generated yet</p>
+            <p style={{ fontSize: "0.85rem" }}>Click "Generate Action Plan" to get AI-powered intervention strategies.</p>
           </div>
         )}
       </div>

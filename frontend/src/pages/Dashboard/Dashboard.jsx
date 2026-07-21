@@ -23,20 +23,35 @@ function Dashboard() {
   }, []);
 
   if (loading) {
-    return <div className="loading-container"><h2>Loading dashboard analytics...</h2></div>;
+    return (
+      <div className="loading-container">
+        <div className="spinner"></div>
+        <h2>Loading real-time air quality control tower...</h2>
+      </div>
+    );
   }
 
   return (
     <div className="dashboard-root">
-      <h1 className="dashboard-title">City Air Quality Control Tower</h1>
+      <div className="dashboard-header">
+        <div>
+          <h1 className="dashboard-title">City Air Quality Control Tower</h1>
+          <p className="dashboard-subtitle">
+            Real-time environmental monitoring, ARIMA forecast trend analysis & AI intervention hub
+          </p>
+        </div>
+      </div>
+
       <AQICards data={data} />
+
       <div className="dashboard-grid">
         <MapSection data={data?.attribution?.hotspots} />
         <ChartsSection forecast={data?.forecast} attribution={data?.attribution?.attribution} />
       </div>
+
       <RecommendationPanel recommendations={data?.recommendation?.recommendations} />
     </div>
   );
 }
 
-export default Dashboard;
+export default Dashboard;

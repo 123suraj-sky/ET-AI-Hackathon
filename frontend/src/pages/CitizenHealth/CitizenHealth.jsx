@@ -4,6 +4,7 @@ import remarkGfm from "remark-gfm";
 import "./CitizenHealth.css";
 import { getHealthAdvisor } from "../../services/citizenApi";
 import { getDashboardData } from "../../services/dashboardApi";
+import { FaHeartbeat, FaSyncAlt, FaExclamationTriangle } from "react-icons/fa";
 
 const GROUP_CONFIG = [
   { label: "General Public", icon: "👥", color: "#3b82f6", risk: "Low" },
@@ -90,21 +91,23 @@ function CitizenHealth() {
     }
   };
 
-
-
   const aqiColor = aqi !== null ? getAqiColor(aqi) : "#64748b";
   const aqiLabel = aqi !== null ? getAqiLabel(aqi) : "—";
 
   return (
     <div className="citizen-container">
-      <h2 className="page-title">🏥 Citizen Health Advisory</h2>
-      <p className="page-description">
-        AI-powered health advice tailored to your demographic group and current AQI levels.
-        Based on Agent 4 — Citizen Health Agent.
-      </p>
+      <div>
+        <h1 className="dashboard-title">
+          <FaHeartbeat style={{ color: "#ec4899" }} />
+          Citizen Health Advisory
+        </h1>
+        <p className="dashboard-subtitle">
+          AI-powered health advice tailored to your demographic group and current AQI levels (Citizen Health Agent)
+        </p>
+      </div>
 
       {/* AQI Banner */}
-      <div className="aqi-banner" style={{ borderColor: aqiColor }}>
+      <div className="aqi-banner" style={{ borderColor: `${aqiColor}44` }}>
         <div className="aqi-banner-left">
           <span className="aqi-label-small">LIVE AQI · Delhi</span>
           <span className="aqi-value" style={{ color: aqiColor }}>
@@ -149,8 +152,8 @@ function CitizenHealth() {
               key={group.label}
               className={`group-card ${selectedGroup.label === group.label ? "group-card--active" : ""}`}
               style={{
-                borderColor: selectedGroup.label === group.label ? group.color : "transparent",
-                background: selectedGroup.label === group.label ? group.color + "18" : "rgba(255,255,255,0.03)",
+                borderColor: selectedGroup.label === group.label ? group.color : "var(--glass-border)",
+                background: selectedGroup.label === group.label ? group.color + "18" : "rgba(30, 41, 59, 0.35)",
               }}
               onClick={() => handleGroupChange(group)}
               disabled={loading}
@@ -189,22 +192,22 @@ function CitizenHealth() {
             title="Refresh advice"
             style={{ marginLeft: "auto" }}
           >
-            🔄
+            <FaSyncAlt className={loading ? "spin" : ""} /> Refresh Advice
           </button>
         </div>
 
         <div className="advice-body">
           {loading ? (
             <div className="advice-loading">
-              <div className="loading-spinner" />
+              <div className="spinner" style={{ margin: "0 auto 16px" }} />
               <p>Analyzing health recommendations for <strong>{selectedGroup.label}</strong> with AQI {aqi}...</p>
-              <p className="loading-sub">Powered by Gemini AI · This may take a few seconds</p>
+              <p className="loading-sub">Powered by Gemini AI · Tailoring medical & protection guidance</p>
             </div>
           ) : error ? (
             <div className="advice-error">
-              <div style={{ fontSize: "36px", marginBottom: "12px" }}>⚠️</div>
+              <FaExclamationTriangle style={{ fontSize: "2.5rem", color: "#ef4444", marginBottom: "12px" }} />
               <p style={{ color: "#ef4444", fontWeight: "bold", marginBottom: "8px" }}>Could not retrieve health advice</p>
-              <p style={{ color: "#64748b", fontSize: "13px" }}>{error}</p>
+              <p style={{ color: "var(--text-muted)", fontSize: "0.85rem" }}>{error}</p>
             </div>
           ) : advice ? (
             <div className="advice-content">
@@ -212,7 +215,7 @@ function CitizenHealth() {
             </div>
           ) : (
             <div className="advice-empty">
-              <div style={{ fontSize: "40px", marginBottom: "14px" }}>🏥</div>
+              <div style={{ fontSize: "2.5rem", marginBottom: "14px" }}>🏥</div>
               <p>No advice yet. Select a demographic group above to get started.</p>
             </div>
           )}

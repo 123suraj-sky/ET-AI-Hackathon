@@ -1,23 +1,87 @@
 .aqi-cards {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
-    margin-bottom: 30px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
 }
 
-.card {
-    background: #1E293B;
-    color: white;
-    padding: 20px;
-    border-radius: 12px;
-    text-align: center;
+.aqi-card-item {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 140px;
 }
 
-.card h3 {
-    margin-bottom: 15px;
+.aqi-card-item::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.1);
 }
 
-.card h2 {
-    font-size: 32px;
-    margin-bottom: 10px;
+.card-red::before { background: linear-gradient(90deg, #ef4444, #f87171); }
+.card-orange::before { background: linear-gradient(90deg, #f97316, #fb923c); }
+.card-yellow::before { background: linear-gradient(90deg, #eab308, #fde047); }
+.card-green::before { background: linear-gradient(90deg, #22c55e, #4ade80); }
+.card-blue::before { background: linear-gradient(90deg, #3b82f6, #60a5fa); }
+.card-teal::before { background: linear-gradient(90deg, #14b8a6, #2dd4bf); }
+
+.aqi-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.aqi-card-title {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.aqi-card-icon {
+  font-size: 1.25rem;
+  opacity: 0.8;
+}
+
+.aqi-card-value {
+  font-size: 2.2rem;
+  font-weight: 800;
+  margin: 10px 0 4px;
+  color: var(--text-main);
+  letter-spacing: -0.02em;
+}
+
+.aqi-card-status {
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--text-dim);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.dot-red { background: #ef4444; box-shadow: 0 0 8px #ef4444; }
+.dot-orange { background: #f97316; box-shadow: 0 0 8px #f97316; }
+.dot-yellow { background: #eab308; box-shadow: 0 0 8px #eab308; }
+.dot-green { background: #22c55e; box-shadow: 0 0 8px #22c55e; }
+.dot-blue { background: #3b82f6; box-shadow: 0 0 8px #3b82f6; }
+.dot-teal { background: #14b8a6; box-shadow: 0 0 8px #14b8a6; }
+
+@media (max-width: 1024px) {
+  .aqi-cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
