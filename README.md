@@ -43,6 +43,36 @@ ET AI Hackathon/
 | Backend | Java · Spring Boot | `8080` | REST aggregation layer for the frontend |
 | Frontend | React · Vite | `5173` | Interactive SPA dashboard |
 
+### Model Training Data
+
+| Dataset | Purpose | Format | Source |
+|---|---|---|---|
+| Indian Air Quality Dataset (2015–2020) | Used to train the AQI forecast model | CSV | [Kaggle: Air Quality Data in India](https://www.kaggle.com/datasets/rohanrao/air-quality-data-in-india) |
+
+The historical AQI dataset above is used for model training and validation of the forecast pipeline.
+
+### Time Series Forecasting Model
+
+**Selected Model:** ARIMA(2,0,2)
+
+### Model Selection
+- Best model selected using AutoARIMA
+- Final configuration: **ARIMA(2,0,2)**
+- Number of observations: **1,605**
+
+### Model Performance
+
+| Metric | Value |
+|--------|-------:|
+| AIC | 15385.238 |
+| BIC | 15417.524 |
+| Log Likelihood | -7686.619 |
+
+### Diagnostic Tests
+- Ljung-Box p-value: **0.95** (Residuals show no significant autocorrelation)
+- Jarque-Bera p-value: **< 0.001** (Residuals are not perfectly normally distributed)
+- Heteroskedasticity p-value: **0.15** (No significant heteroskedasticity)
+
 ---
 
 ## ✨ Features
