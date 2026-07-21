@@ -1,21 +1,16 @@
 import { useNavigate } from "react-router-dom";
 import "./Navbar.css";
-import { FaBell, FaUserCircle } from "react-icons/fa";
+import { FaSearch, FaSignOutAlt } from "react-icons/fa";
 import { useAuth } from "../../context/AuthContext";
 
 function Navbar() {
-
   const navigate = useNavigate();
+  const { logout } = useAuth();
 
-const { logout } = useAuth();
-
-const handleLogout = () => {
-
+  const handleLogout = () => {
     logout();
-
     navigate("/login");
-
-};
+  };
 
   return (
     <nav className="navbar">
@@ -24,12 +19,16 @@ const handleLogout = () => {
       </div>
 
       <div className="search">
-        <input type="text" placeholder="Search City..." />
+        <FaSearch className="search-icon" />
+        <input type="text" placeholder="Search city or ward..." />
       </div>
 
-      <button onClick={handleLogout}>
-    Logout
-</button>
+      <div className="navbar-right">
+        <button className="logout-btn" onClick={handleLogout}>
+          <FaSignOutAlt />
+          Logout
+        </button>
+      </div>
     </nav>
   );
 }

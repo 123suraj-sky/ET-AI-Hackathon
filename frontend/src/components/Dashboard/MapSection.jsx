@@ -1,6 +1,7 @@
 import { MapContainer, TileLayer, CircleMarker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import "./MapSection.css";
+import { FaMapMarkedAlt } from "react-icons/fa";
 
 function MapSection({ data }) {
   const position = [28.6139, 77.2090]; // Delhi Center
@@ -21,9 +22,12 @@ function MapSection({ data }) {
   }
 
   return (
-    <div className="map-section">
-      <h2 className="section-title">🗺 Live Ward & Monitoring Station Map</h2>
-      <div className="map-wrapper" style={{ height: "350px", width: "100%", borderRadius: "8px", overflow: "hidden" }}>
+    <div className="glass-panel map-section" style={{ padding: "24px" }}>
+      <h2 className="map-section-title">
+        <FaMapMarkedAlt style={{ color: "#3b82f6" }} />
+        Live Ward & Monitoring Station Map
+      </h2>
+      <div className="map-wrapper">
         <MapContainer center={position} zoom={11} scrollWheelZoom={false} style={{ height: "100%", width: "100%" }}>
           <TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -37,13 +41,16 @@ function MapSection({ data }) {
               fillColor={getColor(station.aqi)}
               color="#ffffff"
               weight={2}
-              fillOpacity={0.75}
+              fillOpacity={0.8}
             >
               <Popup>
-                <div style={{ fontSize: "14px", fontFamily: "sans-serif" }}>
-                  <strong>{station.name}</strong>
-                  <div style={{ margin: "4px 0" }}>AQI: <span style={{ color: getColor(station.aqi), fontWeight: "bold" }}>{station.aqi}</span> ({station.status})</div>
-                  <div>Primary Driver: {station.majorSource}</div>
+                <div style={{ fontSize: "13px", fontFamily: "var(--font-sans)", color: "#e2e8f0" }}>
+                  <strong style={{ fontSize: "14px", color: "#ffffff", display: "block", marginBottom: "4px" }}>{station.name}</strong>
+                  <div style={{ margin: "4px 0" }}>
+                    AQI: <span style={{ color: getColor(station.aqi), fontWeight: "bold", fontSize: "14px" }}>{station.aqi}</span> 
+                    <span style={{ marginLeft: "6px", fontSize: "11px", padding: "2px 6px", borderRadius: "4px", background: "rgba(255,255,255,0.1)" }}>{station.status}</span>
+                  </div>
+                  <div style={{ color: "#94a3b8", fontSize: "12px", marginTop: "4px" }}>Driver: {station.majorSource}</div>
                 </div>
               </Popup>
             </CircleMarker>
@@ -54,4 +61,4 @@ function MapSection({ data }) {
   );
 }
 
-export default MapSection;
+export default MapSection;

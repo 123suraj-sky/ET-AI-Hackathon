@@ -7,3 +7,4 @@ numpy
 pydantic
 scikit-learn
 requests
+python-dotenv

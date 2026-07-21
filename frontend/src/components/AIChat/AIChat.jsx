@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./AIChat.css";
 import { askCopilot } from "../../services/llmApi";
+import { FaPaperPlane, FaRobot, FaUser } from "react-icons/fa";
 
 function AIChat() {
   const [question, setQuestion] = useState("");
@@ -8,7 +9,7 @@ function AIChat() {
   const [messages, setMessages] = useState([
     {
       sender: "AI",
-      text: "Hello! 👋 I'm AirVision AI. Ask me anything about Delhi's air quality, pollution mitigation strategies, or ARIMA forecasting details."
+      text: "Hello! 👋 I'm AirVision AI Copilot. Ask me anything about Delhi's air quality, pollution mitigation strategies, ARIMA forecasting, or citizen health advisories."
     }
   ]);
 
@@ -56,28 +57,44 @@ function AIChat() {
 
   return (
     <div className="chat-container">
-      <div className="chat-messages" style={{ minHeight: "300px", maxHeight: "450px", overflowY: "auto" }}>
+      <div className="chat-messages">
         {messages.map((msg, index) => (
           <div
             key={index}
             className={msg.sender === "You" ? "user-message" : "ai-message"}
           >
-            <strong>{msg.sender}:</strong> {msg.text}
+            <div style={{ display: "flex", alignItems: "center", gap: "6px", marginBottom: "4px", fontSize: "0.8rem", opacity: 0.8 }}>
+              {msg.sender === "You" ? <FaUser /> : <FaRobot style={{ color: "#a855f7" }} />}
+              <strong>{msg.sender}</strong>
+            </div>
+            <div>{msg.text}</div>
           </div>
         ))}
-        {loading && <div className="ai-message"><strong>AI:</strong> Typing recommendations...</div>}
+        {loading && (
+          <div className="ai-message">
+            <div style={{ display: "flex", alignItems: "center", gap: "6px", marginBottom: "4px", fontSize: "0.8rem", opacity: 0.8 }}>
+              <FaRobot style={{ color: "#a855f7" }} />
+              <strong>AirVision AI</strong>
+            </div>
+            <div style={{ display: "flex", alignItems: "center", gap: "8px", color: "var(--text-muted)" }}>
+              <span className="spinner" style={{ width: "16px", height: "16px", borderWidth: "2px" }} />
+              Typing response...
+            </div>
+          </div>
+        )}
       </div>
 
       <div className="chat-input">
         <input
           type="text"
-          placeholder="Ask something about AQI or interventions..."
+          placeholder="Ask something about AQI, forecasts, or interventions..."
           value={question}
           onChange={(e) => setQuestion(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && handleSend()}
           disabled={loading}
         />
         <button onClick={handleSend} disabled={loading}>
+          <FaPaperPlane />
           {loading ? "Sending" : "Send"}
         </button>
       </div>
@@ -85,4 +102,4 @@ function AIChat() {
   );
 }
 
-export default AIChat;
+export default AIChat;

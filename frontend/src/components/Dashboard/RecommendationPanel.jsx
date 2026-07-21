@@ -1,9 +1,9 @@
 import "./RecommendationPanel.css";
+import { FaBrain } from "react-icons/fa";
 
 function RecommendationPanel({ recommendations }) {
   const content = recommendations || "Loading custom AI recommendations based on current AQI data...";
 
-  // Simple helper to format basic markdown lines if present
   const renderContent = () => {
     return content.split("\n").map((line, index) => {
       if (line.trim().startsWith("-") || line.trim().startsWith("*")) {
@@ -24,7 +24,10 @@ function RecommendationPanel({ recommendations }) {
 
   return (
     <div className="recommendation">
-      <h2>💡 Gemini AI-Powered Decision Recommendations</h2>
+      <h2 className="recommendation-panel-title">
+        <FaBrain style={{ color: "#f97316" }} />
+        Gemini AI-Powered Decision Recommendations
+      </h2>
       <div className="recommendation-content">
         {renderContent()}
       </div>
@@ -32,4 +35,4 @@ function RecommendationPanel({ recommendations }) {
   );
 }
 
-export default RecommendationPanel;
+export default RecommendationPanel;

@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import "./Reports.css";
 import { generateReport } from "../../services/llmApi";
 import { getDashboardData } from "../../services/dashboardApi";
+import { FaFileAlt, FaPrint, FaExclamationTriangle, FaMagic } from "react-icons/fa";
 
 function Reports() {
   const [reportText, setReportText] = useState("");
@@ -87,139 +88,87 @@ function Reports() {
 
   return (
     <div className="reports-container">
-      <h2 className="page-title">📊 Executive Report Generator</h2>
-      <p className="page-description">
-        Generate comprehensive, AI-authored environmental summaries for submission to municipal officers and regulatory bodies.
-      </p>
+      <div>
+        <h1 className="dashboard-title">
+          <FaFileAlt style={{ color: "#3b82f6" }} />
+          Executive Report Generator
+        </h1>
+        <p className="dashboard-subtitle">
+          Generate comprehensive, AI-authored environmental summaries for submission to municipal officers and regulatory bodies
+        </p>
+      </div>
 
       {/* Controls */}
-      <div
-        className="report-controls"
-        style={{
-          display: "flex",
-          gap: "15px",
-          margin: "20px 0",
-          background: "rgba(255, 255, 255, 0.05)",
-          padding: "16px 20px",
-          borderRadius: "10px",
-          flexWrap: "wrap",
-          alignItems: "flex-end",
-        }}
-      >
-        <div style={{ display: "flex", flexDirection: "column", gap: "5px" }}>
-          <label style={{ color: "#94a3b8", fontSize: "13px" }}>Target Location</label>
+      <div className="report-controls">
+        <div className="input-group">
+          <label className="input-label">Target Location</label>
           <input
             type="text"
+            className="control-input"
             value={location}
             onChange={(e) => setLocation(e.target.value)}
-            style={{ padding: "8px 12px", borderRadius: "6px", border: "1px solid #334155", background: "#0F172A", color: "#fff", fontSize: "14px" }}
           />
         </div>
-        <div style={{ display: "flex", flexDirection: "column", gap: "5px" }}>
-          <label style={{ color: "#94a3b8", fontSize: "13px" }}>
-            Average AQI
-            {aqiLoading && <span style={{ color: "#64748b", fontSize: "11px", marginLeft: "6px" }}>(loading live…)</span>}
+        <div className="input-group">
+          <label className="input-label">
+            Average AQI {aqiLoading && <span style={{ color: "var(--text-dim)", fontSize: "0.75rem" }}>(loading live…)</span>}
           </label>
           <input
             type="number"
+            className="control-input"
+            style={{ width: "120px" }}
             value={aqi}
             onChange={(e) => setAqi(Number(e.target.value))}
-            style={{ padding: "8px 12px", borderRadius: "6px", border: "1px solid #334155", background: "#0F172A", color: "#fff", fontSize: "14px", width: "110px" }}
           />
         </div>
         <button
+          className="action-btn"
           onClick={triggerReport}
           disabled={loading}
-          style={{
-            padding: "10px 22px",
-            borderRadius: "6px",
-            border: "none",
-            background: loading ? "#374151" : "linear-gradient(135deg, #f97316, #ea580c)",
-            color: "#fff",
-            fontWeight: "bold",
-            cursor: loading ? "not-allowed" : "pointer",
-            fontSize: "14px",
-            transition: "opacity 0.2s",
-          }}
         >
-          {loading ? "⏳ Generating Report..." : "📄 Generate Report"}
+          <FaMagic />
+          {loading ? "Generating Report..." : "Generate Report"}
         </button>
       </div>
 
       {/* Output */}
-      <div
-        className="report-output"
-        style={{
-          background: "rgba(15, 23, 42, 0.85)",
-          padding: "30px",
-          borderRadius: "12px",
-          border: "1px solid rgba(249, 115, 22, 0.12)",
-          minHeight: "280px",
-        }}
-      >
+      <div className="report-output">
         {loading ? (
           <div style={{ textAlign: "center", padding: "50px 0" }}>
-            <div
-              style={{
-                width: "40px",
-                height: "40px",
-                border: "3px solid rgba(249, 115, 22, 0.2)",
-                borderTopColor: "#f97316",
-                borderRadius: "50%",
-                animation: "spin 0.8s linear infinite",
-                margin: "0 auto 16px",
-              }}
-            />
-            <p style={{ color: "#94a3b8", fontSize: "15px" }}>Preparing executive report via Gemini AI...</p>
-            <p style={{ color: "#475569", fontSize: "12px", marginTop: "6px" }}>Formatting analysis, health impact, and remediation plan</p>
+            <div className="spinner" style={{ margin: "0 auto 16px" }} />
+            <p style={{ color: "var(--text-muted)", fontSize: "1rem" }}>Preparing executive report via Gemini AI...</p>
+            <p style={{ color: "var(--text-dim)", fontSize: "0.85rem", marginTop: "6px" }}>Formatting analysis, health impact, and remediation plan</p>
           </div>
         ) : error ? (
           <div style={{ textAlign: "center", padding: "40px 0" }}>
-            <div style={{ fontSize: "36px", marginBottom: "12px" }}>⚠️</div>
+            <FaExclamationTriangle style={{ fontSize: "2.5rem", color: "#ef4444", marginBottom: "12px" }} />
             <p style={{ color: "#ef4444", fontWeight: "bold", marginBottom: "8px" }}>Failed to generate report</p>
-            <p style={{ color: "#64748b", fontSize: "13px", maxWidth: "500px", margin: "0 auto" }}>{error}</p>
+            <p style={{ color: "var(--text-muted)", fontSize: "0.85rem", maxWidth: "500px", margin: "0 auto" }}>{error}</p>
           </div>
         ) : reportText ? (
           <div>
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "20px" }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "24px" }}>
               {generatedAt && (
-                <span style={{ fontSize: "12px", color: "#475569" }}>
+                <span style={{ fontSize: "0.82rem", color: "var(--text-dim)" }}>
                   Generated: {generatedAt} · Location: {location} · AQI: {aqi}
                 </span>
               )}
-              <button
-                onClick={() => window.print()}
-                style={{
-                  padding: "8px 16px",
-                  borderRadius: "6px",
-                  background: "transparent",
-                  color: "#f97316",
-                  border: "1px solid #f97316",
-                  cursor: "pointer",
-                  fontWeight: "bold",
-                  fontSize: "13px",
-                  marginLeft: "auto",
-                }}
-              >
-                🖨️ Print / Save PDF
+              <button className="print-btn" onClick={() => window.print()} style={{ marginLeft: "auto" }}>
+                <FaPrint /> Print / Save PDF
               </button>
             </div>
             <div className="report-text">{formatMarkdown(reportText)}</div>
           </div>
         ) : (
-          <div style={{ textAlign: "center", color: "#475569", padding: "50px 0" }}>
-            <div style={{ fontSize: "42px", marginBottom: "16px" }}>📊</div>
-            <p style={{ fontSize: "15px", marginBottom: "6px", color: "#64748b" }}>No report generated yet</p>
-            <p style={{ fontSize: "13px" }}>
+          <div style={{ textAlign: "center", color: "var(--text-dim)", padding: "50px 0" }}>
+            <FaFileAlt style={{ fontSize: "3rem", marginBottom: "16px", opacity: 0.4 }} />
+            <p style={{ fontSize: "1rem", marginBottom: "6px", color: "var(--text-muted)" }}>No report generated yet</p>
+            <p style={{ fontSize: "0.85rem" }}>
               Click <strong style={{ color: "#f97316" }}>Generate Report</strong> to compile a full AI-authored executive brief.
             </p>
           </div>
         )}
       </div>
-
-      <style>{`
-        @keyframes spin { to { transform: rotate(360deg); } }
-      `}</style>
     </div>
   );
 }
