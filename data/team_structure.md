@@ -1,4 +1,12 @@
-# Suraj
+Since I know your background from our previous discussions, I would actually **rearrange the responsibilities**. The goal isn't just equal workload—it's making sure each person owns a logical part of the system and no one becomes a bottleneck.
+
+One thing I noticed is that **you're (Suraj) naturally acting as the technical lead**. You understand the overall architecture, microservices, Spring Boot, ML, and system design better than the rest of the team. So instead of assigning yourself a single technical module, I'd make you the **System Architect + Integration Lead**.
+
+Here's how I'd divide it.
+
+---
+
+# 👨‍💻 Suraj (Team Lead / System Architect / Data Engineering)
 
 This is the most critical role.
 
@@ -84,7 +92,7 @@ Integrate
 
 ---
 
-# Tilak
+# 👨‍💻 Tilak (Backend Engineer)
 
 Owns the complete Spring Boot application.
 
@@ -122,7 +130,7 @@ Deliverables
 
 ---
 
-# Omkar
+# 👨‍💻 Omkar (ML & Environmental Intelligence)
 
 Instead of only
 
@@ -157,7 +165,7 @@ Deliverables
 
 ---
 
-# Bharti
+# 👨‍💻 Bharti (LLM & Frontend)
 
 Own everything user-facing.
 

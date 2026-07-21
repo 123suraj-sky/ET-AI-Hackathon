@@ -32,11 +32,12 @@ function Login() {
     try {
       const response = await loginUser(formData);
       const token = response.data.token;
-      const user = response.data.user;
+      const user = response.data.user || { email: formData.email, name: formData.email.split("@")[0] };
 
       login(token, user);
       navigate("/");
     } catch (err) {
+      console.error("Login failed", err);
       setError("Invalid email or password");
     } finally {
       setLoading(false);

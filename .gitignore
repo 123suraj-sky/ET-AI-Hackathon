@@ -1,2 +1,5 @@
 .vscode
 archive
+venv
+.env
+api_key.txt

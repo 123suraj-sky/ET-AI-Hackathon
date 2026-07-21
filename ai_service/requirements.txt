@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+pmdarima
+pandas
+google-generativeai
+numpy
+pydantic
+scikit-learn
+requests
