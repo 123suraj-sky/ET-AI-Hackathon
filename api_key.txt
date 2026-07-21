@@ -1,2 +1,0 @@
-google gemini api key: AIzaSyCvXwgmKf-YuCY_dPUwYQ8pGR6mAkvsVa8
-openweathermap api key: 4e896b6fb21f6189f401e86ab0f2b705
