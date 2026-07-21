@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 import "./CitizenHealth.css";
 import { getHealthAdvisor } from "../../services/citizenApi";
 import { getDashboardData } from "../../services/dashboardApi";
@@ -88,29 +90,7 @@ function CitizenHealth() {
     }
   };
 
-  const formatText = (text) => {
-    if (!text) return null;
-    return text.split("\n").map((line, idx) => {
-      const trimmed = line.trim();
-      if (!trimmed) return <br key={idx} />;
-      if (trimmed.startsWith("- ") || trimmed.startsWith("* ")) {
-        const content = trimmed.replace(/^[-*]\s*/, "").replace(/\*\*(.*?)\*\*/g, (_, m) => `<strong>${m}</strong>`);
-        return (
-          <li key={idx} className="advice-bullet" dangerouslySetInnerHTML={{ __html: content }} />
-        );
-      }
-      if (trimmed.startsWith("###")) {
-        return <h4 key={idx} className="advice-subheading">{trimmed.replace(/^###\s*/, "")}</h4>;
-      }
-      if (trimmed.startsWith("##")) {
-        return <h3 key={idx} className="advice-heading">{trimmed.replace(/^##\s*/, "")}</h3>;
-      }
-      if (trimmed.startsWith("#")) {
-        return <h3 key={idx} className="advice-heading" style={{ fontSize: "18px" }}>{trimmed.replace(/^#\s*/, "")}</h3>;
-      }
-      return <p key={idx} className="advice-paragraph">{line}</p>;
-    });
-  };
+
 
   const aqiColor = aqi !== null ? getAqiColor(aqi) : "#64748b";
   const aqiLabel = aqi !== null ? getAqiLabel(aqi) : "—";
@@ -228,7 +208,7 @@ function CitizenHealth() {
             </div>
           ) : advice ? (
             <div className="advice-content">
-              {formatText(advice)}
+              <ReactMarkdown remarkPlugins={[remarkGfm]}>{advice}</ReactMarkdown>
             </div>
           ) : (
             <div className="advice-empty">

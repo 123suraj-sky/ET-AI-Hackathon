@@ -253,35 +253,123 @@
   color: #64748b;
 }
 
-/* ─── Advice Content ──────────────────────────────────────────── */
+/* ─── Advice Content (react-markdown) ───────────────────────── */
 .advice-content {
   color: #cbd5e1;
   line-height: 1.8;
   font-size: 14px;
 }
 
-.advice-bullet {
-  margin-left: 20px;
-  margin-bottom: 8px;
+.advice-content h1,
+.advice-content h2,
+.advice-content h3,
+.advice-content h4,
+.advice-content h5,
+.advice-content h6 {
+  color: #f97316;
+  margin: 20px 0 10px;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.advice-content h1 { font-size: 20px; border-bottom: 1px solid rgba(249,115,22,0.25); padding-bottom: 6px; }
+.advice-content h2 { font-size: 17px; border-bottom: 1px solid rgba(249,115,22,0.15); padding-bottom: 4px; }
+.advice-content h3 { font-size: 15px; color: #fb923c; }
+.advice-content h4 { font-size: 14px; color: #fdba74; }
+
+.advice-content p {
+  margin-bottom: 10px;
+  color: #cbd5e1;
+}
+
+.advice-content ul,
+.advice-content ol {
+  padding-left: 22px;
+  margin-bottom: 12px;
+}
+
+.advice-content li {
+  margin-bottom: 6px;
   color: #e2e8f0;
 }
 
-.advice-subheading {
-  color: #f97316;
-  font-size: 14px;
-  margin: 16px 0 8px;
-  font-weight: 600;
+.advice-content strong {
+  color: #f1f5f9;
+  font-weight: 700;
 }
 
-.advice-heading {
-  color: #f97316;
-  font-size: 16px;
-  margin: 20px 0 10px;
-  padding-bottom: 6px;
-  border-bottom: 1px solid rgba(249, 115, 22, 0.2);
+.advice-content em {
+  color: #94a3b8;
+  font-style: italic;
 }
 
-.advice-paragraph {
-  margin-bottom: 10px;
+.advice-content code {
+  background: rgba(249, 115, 22, 0.12);
+  color: #fb923c;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: monospace;
+}
+
+.advice-content pre {
+  background: rgba(15, 23, 42, 0.9);
+  border: 1px solid rgba(249, 115, 22, 0.15);
+  border-radius: 8px;
+  padding: 14px 16px;
+  overflow-x: auto;
+  margin-bottom: 14px;
+}
+
+.advice-content pre code {
+  background: none;
+  padding: 0;
+  color: #e2e8f0;
+}
+
+.advice-content blockquote {
+  border-left: 3px solid #f97316;
+  margin: 12px 0;
+  padding: 8px 16px;
+  background: rgba(249, 115, 22, 0.06);
+  border-radius: 0 6px 6px 0;
+  color: #94a3b8;
+  font-style: italic;
+}
+
+.advice-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 16px;
+  font-size: 13px;
+}
+
+.advice-content th {
+  background: rgba(249, 115, 22, 0.15);
+  color: #fb923c;
+  font-weight: 700;
+  padding: 8px 12px;
+  text-align: left;
+  border: 1px solid rgba(249, 115, 22, 0.2);
+}
+
+.advice-content td {
+  padding: 7px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.07);
   color: #cbd5e1;
+}
+
+.advice-content tr:nth-child(even) td {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.advice-content a {
+  color: #60a5fa;
+  text-decoration: underline;
+}
+
+.advice-content hr {
+  border: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  margin: 18px 0;
 }

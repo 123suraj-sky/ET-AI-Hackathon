@@ -1,4 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 import "./Recommendations.css";
 import { getRecommendations } from "../../services/recommendationApi";
 import { getDashboardData } from "../../services/dashboardApi";
@@ -64,29 +66,7 @@ function Recommendations() {
     fetchRecommendations(aqi, location);
   };
 
-  const formatText = (text) => {
-    if (!text) return null;
-    return text.split("\n").map((line, idx) => {
-      const trimmed = line.trim();
-      if (!trimmed) return <br key={idx} />;
-      if (trimmed.startsWith("**") && trimmed.endsWith("**")) {
-        return <strong key={idx} style={{ display: "block", marginTop: "12px", color: "#f97316" }}>{trimmed.slice(2, -2)}</strong>;
-      }
-      if (trimmed.startsWith("- ") || trimmed.startsWith("* ")) {
-        return <li key={idx} className="rec-bullet">{trimmed.replace(/^[-*]\s*/, "").replace(/\*\*(.*?)\*\*/g, "$1")}</li>;
-      }
-      if (trimmed.startsWith("###")) {
-        return <h4 key={idx} className="rec-subheading">{trimmed.replace(/^###\s*/, "")}</h4>;
-      }
-      if (trimmed.startsWith("##")) {
-        return <h3 key={idx} className="rec-heading">{trimmed.replace(/^##\s*/, "")}</h3>;
-      }
-      if (trimmed.startsWith("#")) {
-        return <h2 key={idx} className="rec-main-title">{trimmed.replace(/^#\s*/, "")}</h2>;
-      }
-      return <p key={idx} className="rec-paragraph">{line}</p>;
-    });
-  };
+
 
   return (
     <div className="recommendation-container">
@@ -170,7 +150,7 @@ function Recommendations() {
           </div>
         ) : recommendations ? (
           <div className="markdown-body" style={{ color: "#e2e8f0", lineHeight: "1.8" }}>
-            {formatText(recommendations)}
+            <ReactMarkdown remarkPlugins={[remarkGfm]}>{recommendations}</ReactMarkdown>
           </div>
         ) : (
           <div style={{ textAlign: "center", padding: "40px 0", color: "#475569" }}>
