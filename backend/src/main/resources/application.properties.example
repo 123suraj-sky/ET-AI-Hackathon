@@ -1,0 +1,35 @@
+```properties
+# ==========================================
+# Spring Boot Application Configuration
+# Copy this file to application.properties
+# and replace the placeholder values.
+# ==========================================
+
+spring.application.name=ETimes
+
+# =========================
+# Database Configuration
+# =========================
+spring.datasource.url=jdbc:postgresql://<HOST>:<PORT>/<DATABASE>?sslmode=require&channelBinding=require
+spring.datasource.username=<DATABASE_USERNAME>
+spring.datasource.password=<DATABASE_PASSWORD>
+
+# =========================
+# JPA / Hibernate
+# =========================
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
+spring.jpa.properties.hibernate.format_sql=true
+spring.jpa.database-platform=org.hibernate.dialect.PostgreSQLDialect
+
+# =========================
+# JWT Configuration
+# =========================
+jwt.secret=<YOUR_JWT_SECRET>
+jwt.expiration=86400000
+
+# =========================
+# LLM Service
+# =========================
+llm.service.base-url=http://localhost:8000
+```
