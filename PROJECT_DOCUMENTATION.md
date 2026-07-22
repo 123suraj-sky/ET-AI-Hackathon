@@ -679,22 +679,39 @@ OPENWEATHERMAP_API_KEY=8f12a...
 ### 13.2 Backend `application.properties`
 
 ```properties
+# ==========================================
+# Spring Boot Application Configuration
+# Copy this file to application.properties
+# and replace the placeholder values.
+# ==========================================
+
 spring.application.name=ETimes
 
-# Neon Cloud PostgreSQL Connection Settings
-spring.datasource.url=jdbc:postgresql://ep-falling-unit-ad6nt4zf-pooler.c-2.us-east-1.aws.neon.tech/neondb?sslmode=require&channelBinding=require
-spring.datasource.username=neondb_owner
-spring.datasource.password=npg_myzNG3xWYb1R
+# =========================
+# Database Configuration
+# =========================
+spring.datasource.url=jdbc:postgresql://<HOST>:<PORT>/<DATABASE>?sslmode=require&channelBinding=require
+spring.datasource.username=<DATABASE_USERNAME>
+spring.datasource.password=<DATABASE_PASSWORD>
 
-# JPA & Hibernate Settings
+# =========================
+# JPA / Hibernate
+# =========================
 spring.jpa.hibernate.ddl-auto=update
 spring.jpa.show-sql=true
 spring.jpa.properties.hibernate.format_sql=true
 spring.jpa.database-platform=org.hibernate.dialect.PostgreSQLDialect
 
-# JWT Security Configuration
-jwt.secret=8B4F3C8E6F6D4E8B9A1C2D3E4F5A6B7C8D9E1F2A3B4C5D6E7F8A9B1C2D3E4F5
+# =========================
+# JWT Configuration
+# =========================
+jwt.secret=<YOUR_JWT_SECRET>
 jwt.expiration=86400000
+
+# =========================
+# LLM Service
+# =========================
+llm.service.base-url=http://localhost:8000
 ```
 
 ---
