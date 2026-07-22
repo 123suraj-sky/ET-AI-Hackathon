@@ -6,7 +6,7 @@
 
 ## 📹 Demo Video
 
-> **[▶ Watch Demo Video](#)** *(placeholder — replace with actual link)*
+> **[▶ Watch Demo Video](https://drive.google.com/file/d/1Ql9XzMLpin1RF2Da3m8SqzbPT8tnJi-i/view?usp=sharing)**
 
 ---
 
